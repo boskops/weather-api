@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="/static/style.css">
+  <title>Weather App</title>
+</head>
+<body>
+  <h1>🌤 Weather App</h1>
+
+  <form method="post" action="/">
+    <label for="city">Enter City:</label>
+    <input type="text" name="city" required>
+    <button type="submit">Get Weather</button>
+  </form>
+
+  {% if error %}
+    <p style="color: red;">{{ error }}</p>
+  {% endif %}
+
+  {% if data %}
+    <hr>
+    <h2>Weather in {{ data.location.name }}, {{ data.location.country }}</h2>
+    <p><strong>Temperature:</strong> {{ data.current.temp_c }}°C</p>
+    <p><strong>Feels Like:</strong> {{ data.current.feelslike_c }}°C</p>
+    <p><strong>Condition:</strong> {{ data.current.condition.text }}</p>
+    <p><strong>Local Time:</strong> {{ data.location.localtime }}</p>
+    <p><strong>Daytime:</strong> {{ "Yes" if data.current.is_day == 1 else "No" }}</p>
+    <img src="{{ data.current.condition.icon }}" alt="Weather Icon">
+  {% endif %}
+</body>
+</html>
