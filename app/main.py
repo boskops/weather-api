@@ -20,7 +20,7 @@ def get_home(request: Request):
 
 @app.post("/", response_class=HTMLResponse)
 def post_home(request: Request, city: str = Form(...)):
-    url = f"https://api.weatherapi.com/v1/current.json?key={API_KEY}&q={city}&aqi=no"
+    url = f"https://api.weatherapi.com/v1/current.json?key={API_KEY}&q={city}&aqi=yes"
     response = requests.get(url)
 
     if response.status_code != 200:

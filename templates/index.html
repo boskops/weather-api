@@ -1,31 +1,41 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="/static/style.css">
   <title>Weather App</title>
 </head>
+
 <body>
   <h1>🌤 Weather App</h1>
 
   <form method="post" action="/">
-    <label for="city">Enter City:</label>
-    <input type="text" name="city" required>
-    <button type="submit">Get Weather</button>
+    <input type="text" name="city" placeholder="Enter city name..." required>
+    <button type="submit">Get current weather</button>
   </form>
 
   {% if error %}
-    <p style="color: red;">{{ error }}</p>
+  <p style="color: red;">{{ error }}</p>
   {% endif %}
 
   {% if data %}
-    <hr>
-    <h2>Weather in {{ data.location.name }}, {{ data.location.country }}</h2>
-    <p><strong>Temperature:</strong> {{ data.current.temp_c }}°C</p>
-    <p><strong>Feels Like:</strong> {{ data.current.feelslike_c }}°C</p>
-    <p><strong>Condition:</strong> {{ data.current.condition.text }}</p>
-    <p><strong>Local Time:</strong> {{ data.location.localtime }}</p>
-    <p><strong>Daytime:</strong> {{ "Yes" if data.current.is_day == 1 else "No" }}</p>
-    <img src="{{ data.current.condition.icon }}" alt="Weather Icon">
+  <hr>
+  <h2>Weather in {{ data.location.name }}, {{ data.location.country }}</h2>
+  <p><strong>Region:</strong> {{ data.location.region }}</p>
+  <p><strong>Latitude/Longitude:</strong> {{ data.location.lat }}, {{ data.location.lon }}</p>
+  <hr>
+  <p><strong>Temperature:</strong> {{ data.current.temp_c }}°C</p>
+  <p><strong>Feels like:</strong> {{ data.current.feelslike_c }}°C</p>
+  <p><strong>Condition:</strong> {{ data.current.condition.text }} <img src="{{ data.current.condition.icon }}" alt="Weather Icon"></p>
+  <p><strong>Local Ttme:</strong> {{ data.location.localtime }}</p>
+  <p><strong>Daytime:</strong> {{ "Yes" if data.current.is_day == 1 else "No" }}</p>
+  <p><strong>Wind:</strong> {{ data.current.wind_dir }}, {{ data.current.wind_kph }} km/h</p>
+  <p><strong>Pressure:</strong> {{ data.current.pressure_mb }} mb</p>
+  <p><strong>Humidity:</strong> {{ data.current.humidity }} %</p>
+  <p><strong>Cloudness:</strong> {{ data.current.cloud }} %</p>
+  <hr>
+  <p><strong>Air quality index:</strong> {{ data.current.air_quality["us-epa-index"] }}</p>
   {% endif %}
 </body>
+
 </html>
